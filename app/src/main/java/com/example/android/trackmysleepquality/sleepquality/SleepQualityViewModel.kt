@@ -16,6 +16,7 @@
 
 package com.example.android.trackmysleepquality.sleepquality
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -36,6 +37,7 @@ class SleepQualityViewModel(
     }
 
     fun onSetSleepQuality(quality: Int){
+        Log.i("SleepQuality","on SetSleepQuality() called")
         viewModelScope.launch {
             val tonight = database.get(sleepNightKey) ?: return@launch
             tonight.sleepQuality = quality

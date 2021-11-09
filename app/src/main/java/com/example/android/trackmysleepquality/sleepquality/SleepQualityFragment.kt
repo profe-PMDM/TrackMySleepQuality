@@ -43,7 +43,7 @@ class SleepQualityFragment : Fragment() {
      * This function uses DataBindingUtil to inflate R.layout.fragment_sleep_quality.
      */
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+                              savedInstanceState: Bundle?): View {
 
         // Get a reference to the binding object and inflate the fragment views.
         val binding: FragmentSleepQualityBinding = DataBindingUtil.inflate(
@@ -58,7 +58,9 @@ class SleepQualityFragment : Fragment() {
             ViewModelProvider(
                 this, viewModelFactory).get(SleepQualityViewModel::class.java)
 
-        sleepQualityViewModel.navigateToSleepTracker.observe(viewLifecycleOwner, Observer {
+        binding.sleepQualityViewModel = sleepQualityViewModel
+
+        sleepQualityViewModel.navigateToSleepTracker.observe(viewLifecycleOwner, {
             if (it == true) { // Observed state is true.
                 this.findNavController().navigate(
                     SleepQualityFragmentDirections.actionSleepQualityFragmentToSleepTrackerFragment())
