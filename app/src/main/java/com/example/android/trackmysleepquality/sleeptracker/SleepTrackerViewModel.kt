@@ -72,14 +72,25 @@ class SleepTrackerViewModel(
                         oldNight.endTimeMilli = System.currentTimeMillis()
                         update(oldNight)
                 }
-
         }
+
+        fun onClear() {
+                viewModelScope.launch {
+                        clear()
+                        tonight.value = null
+                }
+        }
+
         private suspend fun insert(night: SleepNight){
                 database.insert(night)
         }
 
         private suspend fun update(night: SleepNight) {
                 database.update(night)
+        }
+
+        suspend fun clear() {
+                database.clear()
         }
 
 
